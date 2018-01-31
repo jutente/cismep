@@ -40,6 +40,7 @@
                             <li><a href="{{ route('profissional.index') }}">Profissional</a></li>
                             <li><a href="{{ route('unidade.index') }}">Unidade</a></li>
                             <li><a href="{{ route('setor.index') }}">Setor</a></li>
+                            <li><a href="{{ route('parametro.index') }}">Parametro</a></li>
                         @endif
                     </ul>
 

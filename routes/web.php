@@ -22,3 +22,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/profissional', 'ProfissionalController');
 Route::resource('/unidade', 'UnidadeController');
 Route::resource('/setor', 'SetorController');
+Route::resource('/parametro', 'ParametroController');
