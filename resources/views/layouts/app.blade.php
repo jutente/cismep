@@ -39,6 +39,7 @@
                         @if (Auth::check())
                             <li><a href="{{ route('profissional.index') }}">Profissional</a></li>
                             <li><a href="{{ route('unidade.index') }}">Unidade</a></li>
+                            <li><a href="{{ route('setor.index') }}">Setor</a></li>
                         @endif
                     </ul>
 
