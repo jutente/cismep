@@ -27,7 +27,12 @@ class ProfissionalController extends Controller
     {
        $profs = new Profissional;
 
-         $profs = $profs->orderby('nome')->get();
+        // filtros
+        if (request()->has('nome')){
+            $profs = $profs->where('nome', 'like', '%' . request('nome') . '%');
+        }
+
+        $profs = $profs->orderby('nome')->get();
 
         return view('profissional.index',compact('profs')); 
     }

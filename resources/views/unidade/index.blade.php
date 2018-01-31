@@ -6,17 +6,17 @@
         <div class="col-md-12">
        
 	        {{-- avisa se um usuario foi excluido --}}
-	        @if(Session::has('deleted_profissional')) 
+	        @if(Session::has('deleted_unidade')) 
 	        <div class="alert alert-info">
 	            <a href="#" class="close" data-dismiss="alert" aria-label="Fechar">&times;</a>
-	            <strong>Info!</strong> {{ session('deleted_profissional') }}
+	            <strong>Info!</strong> {{ session('deleted_unidade') }}
 	        </div>
 	        @endif
 	        {{-- avisa quando um usuário foi modificado --}}
-	        @if(Session::has('create_profissional')) 
+	        @if(Session::has('create_unidade')) 
 	        <div class="alert alert-info">
 	            <a href="#" class="close" data-dismiss="alert" aria-label="Fechar">&times;</a>
-	            <strong>Info!</strong> {{ session('create_profissional') }}
+	            <strong>Info!</strong> {{ session('create_unidade') }}
 	        </div>
 	        @endif
 	        <div class="panel panel-default">
@@ -29,7 +29,7 @@
 					  	<div class="btn-group btn-group-sm">					  		
 							<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalFilter">Filtro</a>
 						 					  			
-							<a href="{{route('profissional.create')}}" class="btn btn-primary">Novo Registro</a>							
+							<a href="{{route('unidade.create')}}" class="btn btn-primary">Novo Registro</a>							
 							  
 					  	</div>					  	
 					  </div>
@@ -41,32 +41,19 @@
 	                <table class="table table-striped">
 	                    <thead>
 	                    <tr>
-	                        <th>Profissional</th>
-							<th>Cargo</th>
-							<th>Especialidade</th>
-							<th>CPF</th>
-							<th>Registro</th>
-							<th>Telefone</th>
-							<th>Celular</th>
-	                        <th>Data do Cadastro</th>
+	                        <th>unidade</th>	    
 	                    </tr>
 	                    </thead>
 
 	                    <tbody>
-							@foreach($profs as $p)
+							@foreach($unidades as $p)
 							<tr>
-								<td>{{$p->nome}}</td>	
-								<td>{{$p->cargo}}</td>
-								<td>{{$p->especialidade}}</td>	
-								<td>{{$p->cpf}}</td>
-								<td>{{$p->registro}}</td>	
-								<td>{{$p->tel}}</td>
-								<td>{{$p->cel}}</td>	
-								<td>{{\Carbon\Carbon::parse($p->dtcadastro)->format('d/m/Y')}}</td>		
+								<td>{{$p->unidade}}</td>
+							
 								<td style="text-align: right">
-                                    <a href="{{route('profissional.edit',$p->id)}}" class="btn btn-default btn-xs" role="button">Alterar</a>
+                                    <a href="{{route('unidade.edit',$p->id)}}" class="btn btn-default btn-xs" role="button">Alterar</a>
                                 
-                                    <a href="{{route('profissional.show',$p->id)}}" class="btn btn-danger btn-xs" role="button">Excluir</a>
+                                    <a href="{{route('unidade.show',$p->id)}}" class="btn btn-danger btn-xs" role="button">Excluir</a>
                                 </td>			
 								
 							</tr>    
@@ -93,21 +80,18 @@
 		  <h4 class="modal-title">Modal Header</h4>
 		</div>
 		<div class="modal-body">
-			{!! Form::open(['method'=>'GET','url'=>route('profissional.index')])  !!}
+			{!! Form::open(['method'=>'GET','url'=>route('unidade.index')])  !!}
 			<br>                         
 			<div class="form-group">
-				{{ Form::label('nome', 'Profissional:') }}
-				{{ Form::text('nome', '', ['class' => 'form-control', 'placeholder' => 'Nome do profissional...']) }}   
+				{{ Form::label('unidade', 'unidade:') }}
+				{{ Form::text('unidade', '', ['class' => 'form-control', 'placeholder' => 'Nome do unidade...']) }}   
 			</div>
 			<br>   
-			<div class="form-group">
-				{{ Form::label('cpf', 'CPF:') }}
-				{{ Form::text('cpf', '', ['class' => 'form-control', 'placeholder' =>'CPF do profissional ...']) }}   
-			</div>
+			
 								 
 			<div class="form-group">
 				{{ Form::submit('Buscar', ['class' => 'btn btn-default btn-sm']) }}
-				<a href="{{ route('profissional.index') }}" class="btn btn-default btn-sm" role="button">Limpar</a>
+				<a href="{{ route('unidade.index') }}" class="btn btn-default btn-sm" role="button">Limpar</a>
 			</div>
 			{!! Form::close() !!} 
 		</div>
@@ -118,5 +102,6 @@
   
 	</div>
   </div>
-@endsection
 
+
+@endsection

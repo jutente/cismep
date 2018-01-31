@@ -36,7 +36,10 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <li><a href="{{ route('profissional.index') }}">Profissional</a></li>
+                        @if (Auth::check())
+                            <li><a href="{{ route('profissional.index') }}">Profissional</a></li>
+                            <li><a href="{{ route('unidade.index') }}">Unidade</a></li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
