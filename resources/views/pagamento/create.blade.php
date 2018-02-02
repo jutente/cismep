@@ -34,7 +34,7 @@
                         @endif
                         </div>    
                 </div>
-                    
+             
 
                 <!-- Selecionar setor -->
                 <div class="form-group  {{ $errors->has('setor_id') ? ' has-error' : '' }}">
@@ -48,6 +48,20 @@
                         @endif
                         </div>    
                 </div>
+
+                <!-- Selecionar parametro -->
+                <div class="form-group  {{ $errors->has('parametro_id') ? ' has-error' : '' }}">
+                    {{ Form::label('parametro_id', 'Serviço:', ['class' => 'col-md-4 control-label']) }}
+                        <div class="col-md-6">
+                        {!! Form::select('parametro_id', $parametros, null, ['placeholder' => 'Escolha um serviço...', 'class' => 'form-control']) !!}
+                        @if ($errors->has('parametro_id'))
+                            <span class="help-block">
+                                <strong>{{$errors->first('parametro_id')}}</strong>
+                            </span>
+                        @endif
+                        </div>    
+                </div>
+
 
                 <!--  numplutil -->
                 <div class="form-group {{ $errors->has('numplutil') ? ' has-error' : '' }}">

@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Pagamento;
 use App\Setor;
 use App\Unidade;
-use App\Profissional;
+use App\pagamento;
+use App\Parametro;
 
 use Response;
 use Auth;
@@ -30,8 +31,8 @@ class PagamentoController extends Controller
            
        
         // filtros
-        if (request()->has('profissional_id')){
-            $pagamentos = $pagamentos->where('profissional_id', '=', request('profissional_id'));
+        if (request()->has('pagamento_id')){
+            $pagamentos = $pagamentos->where('pagamento_id', '=', request('pagamento_id'));
         }
 
           if (request()->has('unidade_id')){
@@ -47,12 +48,14 @@ class PagamentoController extends Controller
         }
      
         // ordenando
-      $pagamentos = $pagamentos->orderby('profissional_id')->get();  
-      $profissionals =  Profissional::orderBy('nome')->pluck('nome', 'id');
+      $pagamentos = $pagamentos->orderby('pagamento_id')->get();  
+      
+      $pagamentos =  pagamento::orderBy('nome')->pluck('nome', 'id');
       $unidades = Unidade::orderBy('unidade')->pluck('unidade', 'id');
       $setors = Setor::orderBy('setor')->pluck('setor', 'id'); 
-
-        return view('pagamento.index', compact('pagamentos', 'profissionals', 'unidades', 'setors')); 
+      $parametros = Parametro::orderBy('descricao')->pluck('descricao', 'id'); 
+    
+      return view('pagamento.index', compact('pagamentos', 'pagamentos', 'unidades', 'setors', 'parametros')); 
     }
 
     /**
@@ -62,11 +65,12 @@ class PagamentoController extends Controller
      */
     public function create()
     {
-        $profissionals =  Profissional::orderBy('nome')->pluck('nome', 'id');
+        $pagamentos =  pagamento::orderBy('nome')->pluck('nome', 'id');
         $unidades = Unidade::orderBy('unidade')->pluck('unidade', 'id');
         $setors = Setor::orderBy('setor')->pluck('setor', 'id'); 
+        $parametros = Parametro::orderBy('descricao')->pluck('descricao', 'id'); 
 
-        return view('pagamento.create', compact('profissionals', 'unidades', 'setors'));
+        return view('pagamento.create', compact('pagamentos', 'unidades', 'setors', 'parametros'));
     }
 
     /**
@@ -77,7 +81,12 @@ class PagamentoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        Pagamento::create($request->all() + ['valplutil' => $vl]);
+
+        Session::flash('create_pagamento', 'pagamento cadastrado com sucesso!');
+
+        return redirect(route('pagamento.index'));
     }
 
     /**
@@ -99,7 +108,13 @@ class PagamentoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pagamento = Pagamento::findOrFail($id);     
+        
+        $unidades = Unidade::orderBy('unidade')->pluck('unidade', 'id');
+        $setors = Setor::orderBy('setor')->pluck('setor', 'id'); 
+        $parametros = Parametro::orderBy('descricao')->pluck('descricao', 'id');
+        
+        return view('pagamento.edit', compact('pagamento', 'unidades', 'setors', 'parametros'));
     }
 
     /**
@@ -111,7 +126,13 @@ class PagamentoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $pagamento = Pagamento::findOrFail($id);
+            
+        $pagamento->update($request->all());
+        
+        Session::flash('edited_pagamento', 'pagamento alterado com sucesso!');
+
+        return redirect(route('pagamento.edit', $id));
     }
 
     /**

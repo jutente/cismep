@@ -42,6 +42,7 @@
 							<th>Nome</th>
 							<th>Unidade</th>
 							<th>Setor</th>
+							<th>Descriçao</th>
 							<th>Plantao util</th>
 							<th>Valor plantao util</th>
 	                        <th>Plantao nao util</th>	
@@ -54,7 +55,8 @@
 	                    <tr>
 	                        <td>{{$pagamento->profissional->nome}}</td>
 	                        <td>{{$pagamento->unidade->unidade}}</td>
-	                        <td>{{$pagamento->setor->setor}}</td>
+							<td>{{$pagamento->setor->setor}}</td>
+							<th>{{$pagamento->parametro->descricao}}</th>
 							<td>{{$pagamento->numplutil}}</td>
 							<td>{{$pagamento->valplutil}}</td>
 							<td>{{$pagamento->numplnaoutil}}</td>							

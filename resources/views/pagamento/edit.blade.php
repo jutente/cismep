@@ -18,92 +18,81 @@
 
                 {{ Form::hidden('_method', 'PUT') }}
 
-                 <!-- profissional --> 
-                 <div class="form-group {{ $errors->has('nome') ? ' has-error' : '' }}">
-                    {{ Form::label('nome', 'Profissional:', ['class' => 'col-md-4 control-label']) }}
-                    <div class="col-md-6">
-                        {{ Form::text('nome', $profissional->nome, ['class' => 'form-control text-uppercase']) }}
-                        @if ($errors->has('nome'))
+                <!-- Selecionar Profissional -->
+                <div class="form-group  {{ $errors->has('profissional_id') ? ' has-error' : '' }}">
+                    {{ Form::label('profissional_id', 'Profissional:', ['class' => 'col-md-4 control-label']) }}
+                        <div class="col-md-6">
+                        {!! Form::select('profissional_id', $profissionals, $pagamento->profissional_id, ['placeholder' => 'Escolha um profissional...', 'class' => 'form-control']) !!}
+                        @if ($errors->has('profissional_id'))
                             <span class="help-block">
-                                <strong>{{$errors->first('nome')}}</strong>
+                                <strong>{{$errors->first('profissional_id')}}</strong>
                             </span>
                         @endif
-                    </div> 
+                        </div>    
                 </div>
-                  
-                  <!-- cargo -->
-                  <div class="form-group {{ $errors->has('cargo') ? ' has-error' : '' }}">   
-                    {{ Form::label('cargo', 'Cargo:', ['class' => 'col-md-4 control-label']) }}
-                    <div class="col-md-6">
-                        {{ Form::text('cargo', $profissional->cargo, ['class' => 'form-control']) }}
-                        @if ($errors->has('cargo'))
+                
+                <!-- Selecionar unidade -->
+                <div class="form-group  {{ $errors->has('unidade_id') ? ' has-error' : '' }}">
+                    {{ Form::label('unidade_id', 'Unidade:', ['class' => 'col-md-4 control-label']) }}
+                        <div class="col-md-6">
+                        {!! Form::select('unidade_id', $unidades, $pagamento->unidade_id, ['placeholder' => 'Escolha um unidade...', 'class' => 'form-control']) !!}
+                        @if ($errors->has('unidade_id'))
                             <span class="help-block">
-                                <strong>{{$errors->first('cargo')}}</strong>
+                                <strong>{{$errors->first('unidade_id')}}</strong>
                             </span>
                         @endif
-                    </div>       
+                        </div>    
+                </div>
+             
+
+                <!-- Selecionar setor -->
+                <div class="form-group  {{ $errors->has('setor_id') ? ' has-error' : '' }}">
+                    {{ Form::label('setor_id', 'Setor:', ['class' => 'col-md-4 control-label']) }}
+                        <div class="col-md-6">
+                        {!! Form::select('setor_id', $setors, $pagmento->setor_id, ['placeholder' => 'Escolha um setor...', 'class' => 'form-control']) !!}
+                        @if ($errors->has('setor_id'))
+                            <span class="help-block">
+                                <strong>{{$errors->first('setor_id')}}</strong>
+                            </span>
+                        @endif
+                        </div>    
                 </div>
 
-                <!--  especialidade -->
-                <div class="form-group {{ $errors->has('especialidade') ? ' has-error' : '' }}">
-                    {{ Form::label('especialidade', 'Especialidade:', ['class' => 'col-md-4 control-label']) }}
-                    <div class="col-md-6">
-                        {{ Form::text('especialidade',$profissional->especialidade, ['class' => 'form-control']) }}
-                        @if ($errors->has('especialidade'))
+                <!-- Selecionar parametro -->
+                <div class="form-group  {{ $errors->has('parametro_id') ? ' has-error' : '' }}">
+                    {{ Form::label('parametro_id', 'Serviço:', ['class' => 'col-md-4 control-label']) }}
+                        <div class="col-md-6">
+                        {!! Form::select('parametro_id', $parametros, $pagamento->parametro_id, ['placeholder' => 'Escolha um serviço...', 'class' => 'form-control']) !!}
+                        @if ($errors->has('parametro_id'))
                             <span class="help-block">
-                                <strong>{{$errors->first('especialidade')}}</strong>
+                                <strong>{{$errors->first('parametro_id')}}</strong>
+                            </span>
+                        @endif
+                        </div>    
+                </div>
+
+
+                <!--  numplutil -->
+                <div class="form-group {{ $errors->has('numplutil') ? ' has-error' : '' }}">
+                    {{ Form::label('numplutil', 'Plantoes uteis:', ['class' => 'col-md-4 control-label']) }}
+                    <div class="col-md-6">
+                        {{ Form::number('numplutil', '', ['class' => 'form-control']) }}
+                        @if ($errors->has('numplutil'))
+                            <span class="help-block">
+                                <strong>{{$errors->first('numplutil')}}</strong>
                             </span>
                         @endif
                     </div>    
                 </div>
 
-                <!--  cpf -->
-                <div class="form-group {{ $errors->has('cpf') ? ' has-error' : '' }}">
-                    {{ Form::label('cpf', 'CPF:', ['class' => 'col-md-4 control-label']) }}
+                <!--  numplnaoutil  -->
+                <div class="form-group {{ $errors->has('numplnaoutil') ? ' has-error' : '' }}">
+                    {{ Form::label('numplnaoutil', 'Plantoes nao uteis:', ['class' => 'col-md-4 control-label']) }}
                     <div class="col-md-6">
-                        {{ Form::text('cpf', $profissional->cpf, ['class' => 'form-control']) }}
-                        @if ($errors->has('cpf'))
+                        {{ Form::text('numplnaoutil', '', ['class' => 'form-control']) }}
+                        @if ($errors->has('numplnaoutil'))
                             <span class="help-block">
-                                <strong>{{$errors->first('cpf')}}</strong>
-                            </span>
-                        @endif
-                    </div>    
-                </div>
-
-                <!--  registro  -->
-                <div class="form-group {{ $errors->has('registro') ? ' has-error' : '' }}">
-                    {{ Form::label('registro', 'Registro profissional:', ['class' => 'col-md-4 control-label']) }}
-                    <div class="col-md-6">
-                        {{ Form::text('registro', $profissional->registro, ['class' => 'form-control']) }}
-                        @if ($errors->has('registro'))
-                            <span class="help-block">
-                                <strong>{{$errors->first('registro')}}</strong>
-                            </span>
-                        @endif
-                    </div>    
-                </div>
-
-                <!--  telefone -->
-                <div class="form-group {{ $errors->has('tel') ? ' has-error' : '' }}">
-                    {{ Form::label('tel', 'Telefone:', ['class' => 'col-md-4 control-label']) }}
-                    <div class="col-md-6">
-                        {{ Form::tel('tel', $profissional->tel, ['class' => 'form-control','maxlength'=>'11']) }}
-                        @if ($errors->has('tel'))
-                            <span class="help-block">
-                                <strong>{{$errors->first('tel')}}</strong>
-                            </span>
-                        @endif
-                    </div>    
-                </div>
-
-                <!--  celular  -->
-                <div class="form-group {{ $errors->has('cel') ? ' has-error' : '' }}">
-                    {{ Form::label('cel', 'Celular:', ['class' => 'col-md-4 control-label']) }}
-                    <div class="col-md-6">
-                        {{ Form::tel('cel', $profissional->cel, ['class' => 'form-control','maxlength'=>'11']) }}
-                        @if ($errors->has('cel'))
-                            <span class="help-block">
-                                <strong>{{$errors->first('cel')}}</strong>
+                                <strong>{{$errors->first('numplnaoutil')}}</strong>
                             </span>
                         @endif
                     </div>    

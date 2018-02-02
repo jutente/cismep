@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pagamento extends Model
 {
-    protected $fillable = ['numplutil','numplnaoutil','valplutil','valplnaoutil','profissional_id','unidade_id','setor_id'];
+    protected $fillable = ['numplutil','numplnaoutil','valplutil','valplnaoutil','profissional_id','unidade_id','setor_id','parametro_id'];
 
     public function profissional()
     {
@@ -21,5 +21,10 @@ class Pagamento extends Model
     public function setor()
     {
         return $this->belongsTo('App\Setor');
+    }
+
+    public function parametro()
+    {
+        return $this->belongsTo('App\Parametro');
     }
 }

@@ -8,6 +8,13 @@ class Parametro extends Model
 {
     protected $fillable  =  ['descricao','plutil','plnaoutil'];
 
+
+    public function setDescricaoAttribute($value)
+    {
+        $this->attributes['descricao'] = mb_strtoupper($value);
+    }
+
+
     public function setPlutilAttribute($value)
     {
         $this->attributes['plutil'] = number_format($value, 2, '.', '');

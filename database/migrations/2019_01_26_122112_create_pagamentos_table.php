@@ -31,6 +31,9 @@ class CreatePagamentosTable extends Migration
             $table->unsignedInteger('setor_id');
             $table->foreign('setor_id')->references('id')->on('setors');
 
+            $table->unsignedInteger('parametro_id');
+            $table->foreign('parametro_id')->references('id')->on('parametros');
+
             $table->timestamps();
         });
     }
