@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use App\Pagamento;
 use App\Setor;
 use App\Unidade;
-use App\pagamento;
 use App\Parametro;
+use App\Profissional;
 
 use Response;
 use Auth;
@@ -31,31 +31,38 @@ class PagamentoController extends Controller
            
        
         // filtros
-        if (request()->has('pagamento_id')){
-            $pagamentos = $pagamentos->where('pagamento_id', '=', request('pagamento_id'));
+        if (request()->has('profissional_id')){
+            $pagamentos = $pagamentos->where('profissional_id', '=', request('profissional_id'));
         }
 
-          if (request()->has('unidade_id')){
+        if (request()->has('unidade_id')){
             if (request('unidade_id') != ""){
                 $pagamentos = $pagamentos->where('unidade_id', '=', request('unidade_id'));
             }
         }
 
-     if (request()->has('setor_id')){
+        if (request()->has('setor_id')){
             if (request('setor_id') != ""){
                 $pagamentos = $pagamentos->where('setor_id', '=', request('setor_id'));
             }
         }
+
+        if (request()->has('parametro_id')){
+            if (request('parametro_id') != ""){
+                $pagamentos = $pagamentos->where('parametro_id', '=', request('parametro_id'));
+            }
+        }
+     
      
         // ordenando
-      $pagamentos = $pagamentos->orderby('pagamento_id')->get();  
+      $pagamentos = $pagamentos->orderby('id')->get();  
       
-      $pagamentos =  pagamento::orderBy('nome')->pluck('nome', 'id');
+      $profissionals =  Profissional::orderBy('nome')->pluck('nome', 'id');
       $unidades = Unidade::orderBy('unidade')->pluck('unidade', 'id');
       $setors = Setor::orderBy('setor')->pluck('setor', 'id'); 
       $parametros = Parametro::orderBy('descricao')->pluck('descricao', 'id'); 
     
-      return view('pagamento.index', compact('pagamentos', 'pagamentos', 'unidades', 'setors', 'parametros')); 
+      return view('pagamento.index', compact('pagamentos', 'profissionals', 'unidades', 'setors', 'parametros')); 
     }
 
     /**
@@ -65,12 +72,13 @@ class PagamentoController extends Controller
      */
     public function create()
     {
-        $pagamentos =  pagamento::orderBy('nome')->pluck('nome', 'id');
-        $unidades = Unidade::orderBy('unidade')->pluck('unidade', 'id');
-        $setors = Setor::orderBy('setor')->pluck('setor', 'id'); 
-        $parametros = Parametro::orderBy('descricao')->pluck('descricao', 'id'); 
-
-        return view('pagamento.create', compact('pagamentos', 'unidades', 'setors', 'parametros'));
+      $profissionals =  Profissional::orderBy('nome')->pluck('nome', 'id');
+      $unidades = Unidade::orderBy('unidade')->pluck('unidade', 'id');
+      $setors = Setor::orderBy('setor')->pluck('setor', 'id'); 
+      $parametros = Parametro::orderBy('descricao')->pluck('descricao', 'id');
+        
+      
+      return view('pagamento.create', compact('profissionals', 'unidades', 'setors', 'parametros'));
     }
 
     /**

@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading"><a href="{{route('pagamento.index')}}">pagamento</a> - Novo numplnaoutil</div>
+                <div class="panel-heading"><a href="{{route('pagamento.index')}}">pagamento</a> - Novo</div>
                 <br>
                 {!! Form::open(['method' => 'post', 'url' => route('pagamento.store'), 'class' => 'form-horizontal']) !!}
                 
