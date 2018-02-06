@@ -65,7 +65,7 @@
 
                 <!--  numplutil -->
                 <div class="form-group {{ $errors->has('numplutil') ? ' has-error' : '' }}">
-                    {{ Form::label('numplutil', 'Plantoes uteis:', ['class' => 'col-md-4 control-label']) }}
+                    {{ Form::label('numplutil', 'Plantoes uteis (em horas):', ['class' => 'col-md-4 control-label']) }}
                     <div class="col-md-6">
                         {{ Form::number('numplutil', '', ['class' => 'form-control']) }}
                         @if ($errors->has('numplutil'))
@@ -78,7 +78,7 @@
 
                 <!--  numplnaoutil  -->
                 <div class="form-group {{ $errors->has('numplnaoutil') ? ' has-error' : '' }}">
-                    {{ Form::label('numplnaoutil', 'Plantoes nao uteis:', ['class' => 'col-md-4 control-label']) }}
+                    {{ Form::label('numplnaoutil', 'Plantoes nao uteis (em horas):', ['class' => 'col-md-4 control-label']) }}
                     <div class="col-md-6">
                         {{ Form::text('numplnaoutil', '', ['class' => 'form-control']) }}
                         @if ($errors->has('numplnaoutil'))

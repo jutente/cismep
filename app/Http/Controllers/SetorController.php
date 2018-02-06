@@ -36,7 +36,7 @@ class SetorController extends Controller
             $setors = $setors->where('setor', 'like', '%' . request('setor') . '%');
         }
 
-        $setors = $setors->orderby('setor')->get();
+        $setors = $setors->orderby('setor')->paginate(10);
 
         
         return view('setor.index', compact('setors'));

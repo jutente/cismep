@@ -4,17 +4,17 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            @if(Session::has('edited_profissional')) 
+            @if(Session::has('edited_pagamento')) 
             <div class="alert alert-info">
                 <a href="#" class="close" data-dismiss="alert" aria-label="Fechar">&times;</a>
-                <strong>Info!</strong> {{ session('edited_profissional') }}
+                <strong>Info!</strong> {{ session('edited_pagamento') }}
             </div>
             @endif
             <div class="panel panel-default">
-                <div class="panel-heading"><a href="{{route('profissional.index')}}">profissional</a> - Alterar</div>
+                <div class="panel-heading"><a href="{{route('pagamento.index')}}">Pagamento</a> - Alterar</div>
                 <br>
 
-                {!! Form::open(['method' => 'post', 'url' => route('profissional.update', $profissional->id), 'class' => 'form-horizontal']) !!}
+                {!! Form::open(['method' => 'post', 'url' => route('pagamento.update', $pagamento->id), 'class' => 'form-horizontal']) !!}
 
                 {{ Form::hidden('_method', 'PUT') }}
 
@@ -22,7 +22,7 @@
                 <div class="form-group  {{ $errors->has('profissional_id') ? ' has-error' : '' }}">
                     {{ Form::label('profissional_id', 'Profissional:', ['class' => 'col-md-4 control-label']) }}
                         <div class="col-md-6">
-                        {!! Form::select('profissional_id', $profissionals, $pagamento->profissional_id, ['placeholder' => 'Escolha um profissional...', 'class' => 'form-control']) !!}
+                        {!! Form::select('profissional_id', $profissionals, $pagamento->profissional_id , ['placeholder' => 'Escolha um profissional...', 'class' => 'form-control']) !!}
                         @if ($errors->has('profissional_id'))
                             <span class="help-block">
                                 <strong>{{$errors->first('profissional_id')}}</strong>
@@ -49,7 +49,7 @@
                 <div class="form-group  {{ $errors->has('setor_id') ? ' has-error' : '' }}">
                     {{ Form::label('setor_id', 'Setor:', ['class' => 'col-md-4 control-label']) }}
                         <div class="col-md-6">
-                        {!! Form::select('setor_id', $setors, $pagmento->setor_id, ['placeholder' => 'Escolha um setor...', 'class' => 'form-control']) !!}
+                        {!! Form::select('setor_id', $setors, $pagamento->setor_id, ['placeholder' => 'Escolha um setor...', 'class' => 'form-control']) !!}
                         @if ($errors->has('setor_id'))
                             <span class="help-block">
                                 <strong>{{$errors->first('setor_id')}}</strong>
@@ -74,9 +74,9 @@
 
                 <!--  numplutil -->
                 <div class="form-group {{ $errors->has('numplutil') ? ' has-error' : '' }}">
-                    {{ Form::label('numplutil', 'Plantoes uteis:', ['class' => 'col-md-4 control-label']) }}
+                    {{ Form::label('numplutil', 'Plantoes uteis (em horas):', ['class' => 'col-md-4 control-label']) }}
                     <div class="col-md-6">
-                        {{ Form::number('numplutil', '', ['class' => 'form-control']) }}
+                        {{ Form::number('numplutil', $pagamento->numplutil, ['class' => 'form-control']) }}
                         @if ($errors->has('numplutil'))
                             <span class="help-block">
                                 <strong>{{$errors->first('numplutil')}}</strong>
@@ -87,9 +87,9 @@
 
                 <!--  numplnaoutil  -->
                 <div class="form-group {{ $errors->has('numplnaoutil') ? ' has-error' : '' }}">
-                    {{ Form::label('numplnaoutil', 'Plantoes nao uteis:', ['class' => 'col-md-4 control-label']) }}
+                    {{ Form::label('numplnaoutil', 'Plantoes nao uteis (em horas):', ['class' => 'col-md-4 control-label']) }}
                     <div class="col-md-6">
-                        {{ Form::text('numplnaoutil', '', ['class' => 'form-control']) }}
+                        {{ Form::text('numplnaoutil', $pagamento->numplnaoutil, ['class' => 'form-control']) }}
                         @if ($errors->has('numplnaoutil'))
                             <span class="help-block">
                                 <strong>{{$errors->first('numplnaoutil')}}</strong>

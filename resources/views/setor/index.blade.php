@@ -62,10 +62,11 @@
 							@endforeach                                                 
 	                    </tbody>
 	                </table>                          
-	            </div>
-
-	          
-
+				</div>
+				
+				<div class="row" align="center">
+					{{$setors->links()}}
+				</div>
 	        </div>    
     	</div>
     </div>

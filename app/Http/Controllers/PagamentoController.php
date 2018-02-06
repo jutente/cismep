@@ -89,8 +89,14 @@ class PagamentoController extends Controller
      */
     public function store(Request $request)
     {
+       
+        $parametro = parametro::findOrFail($request->parametro_id);        
         
-        Pagamento::create($request->all() + ['valplutil' => $vl]);
+        $vutil =($parametro->plutil/12) * $request->numplutil;
+
+        $vnaoutil = ($parametro->plnaoutil/12) * $request->numplnaoutil;
+
+        Pagamento::create($request->all() + ['valplutil' => $vutil, 'valplnaoutil' => $vnaoutil]);
 
         Session::flash('create_pagamento', 'pagamento cadastrado com sucesso!');
 
@@ -105,7 +111,9 @@ class PagamentoController extends Controller
      */
     public function show($id)
     {
-        //
+        $pagamento = Pagamento::findOrFail($id);
+        
+           return view('pagamento.show', compact('pagamento'));
     }
 
     /**
@@ -116,13 +124,14 @@ class PagamentoController extends Controller
      */
     public function edit($id)
     {
-        $pagamento = Pagamento::findOrFail($id);     
+        $pagamento = Pagamento::findOrFail($id);    
         
+        $profissionals =  Profissional::orderBy('nome')->pluck('nome', 'id');        
         $unidades = Unidade::orderBy('unidade')->pluck('unidade', 'id');
         $setors = Setor::orderBy('setor')->pluck('setor', 'id'); 
         $parametros = Parametro::orderBy('descricao')->pluck('descricao', 'id');
         
-        return view('pagamento.edit', compact('pagamento', 'unidades', 'setors', 'parametros'));
+        return view('pagamento.edit', compact('pagamento', 'profissionals', 'unidades', 'setors', 'parametros'));
     }
 
     /**
@@ -135,8 +144,24 @@ class PagamentoController extends Controller
     public function update(Request $request, $id)
     {
         $pagamento = Pagamento::findOrFail($id);
-            
-        $pagamento->update($request->all());
+             
+        $parametro = Parametro::findOrFail($request->parametro_id);    
+        
+        $setor  = Setor::findOrfail($request->setor_id);
+
+        $unidade  = Unidade::findOrfail($request->unidade_id);
+
+        $profissional  = Profissional::findOrfail($request->profissional_id);
+          
+
+        $pagamento->valplutil = ($parametro->plutil/12) * $request->numplutil;
+        $pagamento->valplnaoutil = ($parametro->plnaoutil/12) * $request->numplnaoutil;
+        $pagamento->parametro_id = $parametro->id;
+        $pagamento->setor_id = $setor->id;
+        $pagamento->unidade_id = $unidade->id;
+        $pagamento->profissional_id = $profissional->id;
+
+        $pagamento->save();
         
         Session::flash('edited_pagamento', 'pagamento alterado com sucesso!');
 
@@ -151,6 +176,10 @@ class PagamentoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Pagamento::findOrFail($id)->delete();
+        
+        Session::flash('deleted_pagamento', 'pagamento excluído com sucesso!');
+        
+        return redirect(route('pagamento.index'));
     }
 }

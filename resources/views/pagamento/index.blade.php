@@ -23,12 +23,12 @@
 					  	Profissionais
 					  </div>
 					  <div class="col-sm-12 text-right">
-					  	<div class="btn-group btn-group-sm">					  		
+						<div class="btn-group btn-group-sm">					  		
 							<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalFilter">Filtro</a>
 						 					  			
 							<a href="{{route('pagamento.create')}}" class="btn btn-primary">Novo Registro</a>							
 							  
-					  	</div>					  	
+					  	</div>						  	
 					  </div>
 					</div>
 				</div>	
@@ -42,7 +42,7 @@
 							<th>Nome</th>
 							<th>Unidade</th>
 							<th>Setor</th>
-							<th>Descriçao</th>
+							<th width="40%">Descriçao</th>
 							<th>Plantao util</th>
 							<th>Valor plantao util</th>
 	                        <th>Plantao nao util</th>	
@@ -57,16 +57,16 @@
 	                        <td>{{$pagamento->unidade->unidade}}</td>
 							<td>{{$pagamento->setor->setor}}</td>
 							<th>{{$pagamento->parametro->descricao}}</th>
-							<td>{{$pagamento->numplutil}}</td>
-							<td>{{$pagamento->valplutil}}</td>
-							<td>{{$pagamento->numplnaoutil}}</td>							
-							<td>{{$pagamento->valplnaoutil}}</td>						                        
+							<td>{{$pagamento->numplutil.' horas'}}</td>
+							<td>{{'R$ '.number_format($pagamento->valplutil, 2, ',', '.')}}</td>
+							<td>{{$pagamento->numplnaoutil.' horas'}}</td>							
+							<td>{{'R$ '.number_format($pagamento->valplnaoutil, 2, ',', '.')}}</td>				                        
 						
 							
 	                        <td style="text-align: right">
-	                            <a href="{{route('pagamento.edit', $pagamento->idpagamento)}}" class="btn btn-default btn-xs" role="button"><span class="glyphicon glyphicon-pencil"></span>Alterar</a>
+	                            <a href="{{route('pagamento.edit', $pagamento->id)}}" class="btn btn-default btn-xs" role="button">Alterar</a>
 	                        
-	                            <a href="{{route('pagamento.show', $pagamento->idpagamento)}}" class="btn btn-default btn-xs" role="button"><span class="glyphicon glyphicon-trash"></span>Excluir</a>
+	                            <a href="{{route('pagamento.show', $pagamento->id)}}" class="btn btn-danger btn-xs" role="button">Excluir</a>
 	                        </td>
 	                    </tr>    
 	                    @endforeach                                                 
