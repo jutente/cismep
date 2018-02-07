@@ -15,6 +15,12 @@ use Illuminate\Validation\Rule;
 
 class ParametroController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $parametros = new Parametro;
@@ -23,8 +29,8 @@ class ParametroController extends Controller
             $parametros = $parametros->where('descricao', 'like', '%' . request('descricao') . '%');
         }
 
-        $parametros = $parametros->orderby('descricao')->get();
-
+        $parametros = $parametros->orderby('descricao')->paginate(15);
+        
         return view('parametro.index',compact('parametros')); 
     }
 

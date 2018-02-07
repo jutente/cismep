@@ -55,7 +55,7 @@
 								<td>{{'R$ '.number_format($p->plnaoutil, 2, ',', '.')}}</td>
 							
 								<td style="text-align: right">
-                                    <a href="{{route('parametro.edit',$p->id)}}" class="btn btn-default btn-xs" role="button">Alterar</a>
+                                    <a href="{{route('parametro.edit',$p->id)}}" class="btn btn-primary btn-xs" role="button">Alterar</a>
                                 
                                     <a href="{{route('parametro.show',$p->id)}}" class="btn btn-danger btn-xs" role="button">Excluir</a>
                                 </td>			
@@ -64,7 +64,10 @@
 							@endforeach                                                 
 	                    </tbody>
 	                </table>                          
-	            </div>
+				</div>
+				<div class="row" align="center">
+					{{$parametros->links()}}
+				</div>
 
 	          
 

@@ -23,7 +23,7 @@
 	            <div class="panel-heading">
 					<div class="row">
 					  <div class="col-sm-4">
-					  	Profissionais
+					  	Unidades
 					  </div>
 					  <div class="col-sm-12 text-right">
 					  	<div class="btn-group btn-group-sm">					  		
@@ -51,7 +51,7 @@
 								<td>{{$p->unidade}}</td>
 							
 								<td style="text-align: right">
-                                    <a href="{{route('unidade.edit',$p->id)}}" class="btn btn-default btn-xs" role="button">Alterar</a>
+                                    <a href="{{route('unidade.edit',$p->id)}}" class="btn btn-primary btn-xs" role="button">Alterar</a>
                                 
                                     <a href="{{route('unidade.show',$p->id)}}" class="btn btn-danger btn-xs" role="button">Excluir</a>
                                 </td>			
@@ -60,7 +60,11 @@
 							@endforeach                                                 
 	                    </tbody>
 	                </table>                          
-	            </div>
+				</div>
+				
+				<div class="row" align="center">
+					{{$unidades->links()}}
+				</div>
 
 	          
 

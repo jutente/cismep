@@ -20,7 +20,7 @@
 	            <div class="panel-heading">
 					<div class="row">
 					  <div class="col-sm-4">
-					  	Profissionais
+					  	Pagamentos
 					  </div>
 					  <div class="col-sm-12 text-right">
 						<div class="btn-group btn-group-sm">					  		
@@ -64,7 +64,7 @@
 						
 							
 	                        <td style="text-align: right">
-	                            <a href="{{route('pagamento.edit', $pagamento->id)}}" class="btn btn-default btn-xs" role="button">Alterar</a>
+	                            <a href="{{route('pagamento.edit', $pagamento->id)}}" class="btn btn-primary btn-xs" role="button">Alterar</a>
 	                        
 	                            <a href="{{route('pagamento.show', $pagamento->id)}}" class="btn btn-danger btn-xs" role="button">Excluir</a>
 	                        </td>
@@ -72,7 +72,11 @@
 	                    @endforeach                                                 
 	                    </tbody>
 	                </table>                          
-	            </div>
+				</div>
+				
+				<div class="row" align="center">
+					{{$pagamentos->links()}}
+				</div>
 	           
 	        </div>    
     	</div>

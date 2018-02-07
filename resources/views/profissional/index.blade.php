@@ -64,7 +64,7 @@
 								<td>{{$p->cel}}</td>	
 								<td>{{\Carbon\Carbon::parse($p->dtcadastro)->format('d/m/Y')}}</td>		
 								<td style="text-align: right">
-                                    <a href="{{route('profissional.edit',$p->id)}}" class="btn btn-default btn-xs" role="button">Alterar</a>
+                                    <a href="{{route('profissional.edit',$p->id)}}" class="btn btn-primary btn-xs" role="button">Alterar</a>
                                 
                                     <a href="{{route('profissional.show',$p->id)}}" class="btn btn-danger btn-xs" role="button">Excluir</a>
                                 </td>			
@@ -74,7 +74,9 @@
 	                    </tbody>
 	                </table>                          
 	            </div>
-
+				<div class="row" align="center">
+					{{$profs->links()}}
+				</div>
 	          
 
 	        </div>    

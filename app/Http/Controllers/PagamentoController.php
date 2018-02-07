@@ -25,6 +25,11 @@ class PagamentoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $pagamentos = new Pagamento;
@@ -55,7 +60,7 @@ class PagamentoController extends Controller
      
      
         // ordenando
-      $pagamentos = $pagamentos->orderby('id')->get();  
+      $pagamentos = $pagamentos->orderby('id')->paginate(15);  
       
       $profissionals =  Profissional::orderBy('nome')->pluck('nome', 'id');
       $unidades = Unidade::orderBy('unidade')->pluck('unidade', 'id');

@@ -21,6 +21,11 @@ class UnidadeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $unidades = new Unidade;
@@ -29,8 +34,8 @@ class UnidadeController extends Controller
             $unidades = $unidades->where('unidade', 'like', '%' . request('unidade') . '%');
         }
 
-        $unidades = $unidades->orderby('unidade')->get();
-
+        $unidades = $unidades->orderby('unidade')->paginate(15);
+        
         return view('unidade.index',compact('unidades')); 
     }
 

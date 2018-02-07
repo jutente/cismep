@@ -23,7 +23,7 @@
 	            <div class="panel-heading">
 					<div class="row">
 					  <div class="col-sm-4">
-					  	Profissionais
+					  	Setores
 					  </div>
 					  <div class="col-sm-12 text-right">
 					  	<div class="btn-group btn-group-sm">					  		
@@ -53,7 +53,7 @@
 								<td>{{$p->centrocusto}}</td>
 							
 								<td style="text-align: right">
-                                    <a href="{{route('setor.edit',$p->id)}}" class="btn btn-default btn-xs" role="button">Alterar</a>
+                                    <a href="{{route('setor.edit',$p->id)}}" class="btn btn-primary btn-xs" role="button">Alterar</a>
                                 
                                     <a href="{{route('setor.show',$p->id)}}" class="btn btn-danger btn-xs" role="button">Excluir</a>
                                 </td>			

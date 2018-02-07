@@ -23,6 +23,11 @@ class ProfissionalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
        $profs = new Profissional;
@@ -32,7 +37,7 @@ class ProfissionalController extends Controller
             $profs = $profs->where('nome', 'like', '%' . request('nome') . '%');
         }
 
-        $profs = $profs->orderby('nome')->get();
+        $profs = $profs->orderby('nome')->paginate(15);
 
         return view('profissional.index',compact('profs')); 
     }
