@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/relsetor', 'ReportController@index')->name('relsetor');
+
 Route::resource('/profissional', 'ProfissionalController');
 Route::resource('/unidade', 'UnidadeController');
 Route::resource('/setor', 'SetorController');
