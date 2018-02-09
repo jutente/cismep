@@ -42,7 +42,7 @@
 							<th>Nome</th>
 							<th>Unidade</th>
 							<th>Setor</th>
-							<th width="40%">Descriçao</th>
+							<th width="40%">Descriçao </th> 
 							<th>Plantao util</th>
 							<th>Valor plantao util</th>
 	                        <th>Plantao nao util</th>	
@@ -56,7 +56,7 @@
 	                        <td>{{$pagamento->profissional->nome}}</td>
 	                        <td>{{$pagamento->unidade->unidade}}</td>
 							<td>{{$pagamento->setor->setor}}</td>
-							<th>{{$pagamento->parametro->descricao}}</th>
+					        <td>{{$pagamento->parametro->descricao}}</td>
 							<td>{{$pagamento->numplutil.' horas'}}</td>
 							<td>{{'R$ '.number_format($pagamento->valplutil, 2, ',', '.')}}</td>
 							<td>{{$pagamento->numplnaoutil.' horas'}}</td>							

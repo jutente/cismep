@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_Landscape" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="50de34b2-e791-4864-ad5f-8ae6f1e5619b">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="testesetor.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[SELECT p.nome, pg.numplutil, pg.valplutil, (pg.numplutil * pg.valplutil) as totutil , 
+	   pg.numplnaoutil, pg.valplnaoutil, (pg.numplnaoutil * pg.valplnaoutil) as totnaoutil,
+       (pg.numplutil * pg.valplutil+pg.numplnaoutil * pg.valplnaoutil) as total,
+       u.unidade, s.setor, pa.descricao 
+FROM pagamentos pg join unidades u on (pg.unidade_id = u.id)
+				   join setors s on (pg.setor_id = s.id)
+                   join profissionals p on (pg.profissional_id = p.id)
+                   join parametros pa on (pg.parametro_id = pa.id)]]>
+	</queryString>
+	<field name="nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="profissionals"/>
+	</field>
+	<field name="numplutil" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="numplutil"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pagamentos"/>
+	</field>
+	<field name="valplutil" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="valplutil"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pagamentos"/>
+	</field>
+	<field name="totutil" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="totutil"/>
+	</field>
+	<field name="numplnaoutil" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="numplnaoutil"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pagamentos"/>
+	</field>
+	<field name="valplnaoutil" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="valplnaoutil"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pagamentos"/>
+	</field>
+	<field name="totnaoutil" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="totnaoutil"/>
+	</field>
+	<field name="total" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="total"/>
+	</field>
+	<field name="unidade" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="unidade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="unidades"/>
+	</field>
+	<field name="setor" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="setor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="setors"/>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="parametros"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="141" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="91" width="189" height="49" uuid="8da1d534-e273-4355-9c41-de2d3cffaa1c"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[NOME]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="360" y="0" width="260" height="91" uuid="55ac7e4a-61fb-4b6e-87b0-778f861c9fe7"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="360" height="91" uuid="f468091c-4db4-4219-85f3-2e7e3fb2ccc9"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="8" y="30" width="351" height="31" uuid="ee3d707a-5b21-4226-a13d-93fdf74b2b2d"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PLANILHA CONSOLIDADA DE SERVIÇOS MÉDICOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="369" y="10" width="81" height="21" uuid="e5618f0f-2671-4206-b4b3-d614e151e419"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[UNIDADE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="369" y="40" width="81" height="21" uuid="931623ac-2fab-4ffd-9a82-569978bc1f81"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[SETOR:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="620" y="0" width="182" height="91" uuid="1438c9cb-8041-444c-b793-1a6d1a987b6c"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="630" y="10" width="59" height="19" uuid="e0c0e90f-b23e-4348-8a63-8750b7e4128e"/>
+				<text><![CDATA[MÊS/ANO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="630" y="30" width="139" height="19" uuid="e1153d1b-8a2b-40ab-9d92-368d1361f279"/>
+				<text><![CDATA[TOTAL DE PROFISSIONAIS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="630" y="50" width="100" height="19" uuid="77449f57-f0e5-44b2-895e-31e9f70ed89a"/>
+				<text><![CDATA[VALOR DA FOLHA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="189" y="91" width="270" height="49" uuid="5644e078-250d-409b-b556-f88f4d60f75a"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[DESCRIÇÃO DO SERVIÇO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="459" y="91" width="141" height="29" uuid="1e344507-627c-42bf-a70b-337ce365a652"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[PLANTÕES ÚTEIS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="600" y="91" width="140" height="29" uuid="27b59b32-7972-45ba-9c82-da450343406c"/>
+				<box padding="1">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[PLANTÕES NÃO ÚTEIS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="459" y="120" width="30" height="20" uuid="ad9d3528-8b61-4be5-8ea3-0835b332639e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Nº PL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="489" y="120" width="55" height="20" uuid="40b91b20-a630-4d57-8f3c-f4a01dd3d5ce"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[V. PL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="544" y="120" width="56" height="20" uuid="267a6062-f782-476c-b01d-13d6d8f0aae1"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="685" y="120" width="55" height="20" uuid="59f3f789-c90d-46fb-a115-df01346ebf14"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="630" y="120" width="55" height="20" uuid="6fda873e-4d38-45aa-8499-6ab6902fe6b8"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[V. PL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="600" y="120" width="30" height="20" uuid="6829a431-de5a-4e87-a414-7c9288274138"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Nº PL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="741" y="91" width="61" height="49" uuid="7303e3c2-92bc-447c-8474-53728879b5f0"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[VALOR]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="188" height="30" uuid="c748820e-e37e-4cb5-9a88-2e595eea39df"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-100" y="0" width="100" height="30" uuid="e8360a61-f43c-4a35-ad9e-56e59959181c"/>
+				<text><![CDATA[nome]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>
