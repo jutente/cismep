@@ -80,7 +80,7 @@
                 <div class="form-group {{ $errors->has('numplnaoutil') ? ' has-error' : '' }}">
                     {{ Form::label('numplnaoutil', 'Plantoes nao uteis (em horas):', ['class' => 'col-md-4 control-label']) }}
                     <div class="col-md-6">
-                        {{ Form::text('numplnaoutil', '', ['class' => 'form-control']) }}
+                        {{ Form::number('numplnaoutil', '', ['class' => 'form-control']) }}
                         @if ($errors->has('numplnaoutil'))
                             <span class="help-block">
                                 <strong>{{$errors->first('numplnaoutil')}}</strong>

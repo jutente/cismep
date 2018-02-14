@@ -50,6 +50,7 @@
                             <li><a href="{{ route('setor.index') }}">Setor</a></li>
                             <li><a href="{{ route('parametro.index') }}">Parametro</a></li>
                             <li><a href="{{ route('pagamento.index') }}">Pagamento</a></li>
+                            <li><a href="{{ route('relatorio') }}">Relatorio</a></li>
                         @endif
                     </ul>
 

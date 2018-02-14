@@ -3,7 +3,18 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use JasperPHP\JasperPHP;
+
 use App\Setor;
+use App\Unidade;
+
+use Response;
+use Auth;
+
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
+
+use Illuminate\Validation\Rule;
+
 
 class ReportController extends Controller
 {
@@ -23,8 +34,14 @@ class ReportController extends Controller
             'jdbc_dir' => base_path() . env('JDBC_DIR', '/vendor/lavela/phpjasper/src/JasperStarter/jdbc'),
         ];
     }
-public function index()
+public function index(Request $request)
     {
+
+        // receber parametros
+        $setor  = Setor::findOrfail($request->setor_id);
+        $unidade  = Unidade::findOrfail($request->unidade_id);
+        $mesano = $request->mesano;
+
      // coloca na variavel o caminho do novo relatório que será gerado
         $output = public_path() . '/reports/' . time() . '_Clientes';
 // instancia um novo objeto JasperPHP
@@ -37,10 +54,10 @@ public function index()
         // o tipo de saída
         // parametros ( nesse caso não tem nenhum)         
         $report->process(
-            public_path() . '/reports/Blank_A4.jrxml',
+            public_path() . '/reports/relpagamento.jrxml',
             $output,
             ['pdf'],
-            ['Parameter1'=> 7],
+            ['setor'=>$setor->setor , 'unidade'=>$unidade->unidade , 'mesano'=> $mesano],
             $this->getDatabaseConfig()
         )->execute();
         
