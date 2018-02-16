@@ -76,8 +76,9 @@ return [
     | to any of the locales which will be supported by the application.
     |
     */
-
-    'locale' => 'en',
+    setlocale(LC_ALL, NULL),
+    setlocale(LC_ALL,''),
+  //  'locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------

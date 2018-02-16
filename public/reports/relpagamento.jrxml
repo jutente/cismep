@@ -1,67 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_Landscape" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="50de34b2-e791-4864-ad5f-8ae6f1e5619b">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="testesetor.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="setor" class="java.lang.String"/>
 	<parameter name="unidade" class="java.lang.String"/>
 	<parameter name="mesano" class="java.lang.String"/>
 	<parameter name="totprof" class="java.lang.String"/>
 	<parameter name="tofolha" class="java.lang.String"/>
+	<parameter name="wh" class="java.lang.String"/>
+	<parameter name="whu" class="java.lang.String"/>
+	<parameter name="whm" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT p.nome, pg.numplutil, pg.valplutil, (pg.numplutil * pg.valplutil) as totutil , 
-	   pg.numplnaoutil, pg.valplnaoutil, (pg.numplnaoutil * pg.valplnaoutil) as totnaoutil,
-       (pg.numplutil * pg.valplutil+pg.numplnaoutil * pg.valplnaoutil) as total,
-       u.unidade, s.setor, pa.descricao 
-FROM pagamentos pg join unidades u on (pg.unidade_id = u.id)
-				   join setors s on (pg.setor_id = s.id)
-                   join profissionals p on (pg.profissional_id = p.id)
-                   join parametros pa on (pg.parametro_id = pa.id)]]>
+		<![CDATA[SELECT p.nome, pa.descricao, (pg.numplutil/12) as totplutil, pa.plutil, pg.valplutil, 
+							 (pg.numplnaoutil/12) as totplnaoutil, pa.plnaoutil, pg.valplnaoutil,
+                             (pg.valplutil + pg.valplnaoutil) as parcial
+FROM pagamentos pg join profissionals p on (pg.profissional_id = p.id)
+                   join parametros pa on (pg.parametro_id = pa.id)
+                   join setors s on (pg.setor_id = s.id)
+                   join unidades u on (pg.unidade_id = u.id)                  
+ where s.id  = $P{wh} and
+ 			 u.id =  $P{whu} and 
+ 				month(pg.created_at) = $P{whm} ]]>
 	</queryString>
 	<field name="nome" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="nome"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="profissionals"/>
 	</field>
-	<field name="numplutil" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="numplutil"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="pagamentos"/>
+	<field name="descricao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="parametros"/>
+	</field>
+	<field name="totplutil" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="totplutil"/>
+	</field>
+	<field name="plutil" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="plutil"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="parametros"/>
 	</field>
 	<field name="valplutil" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="valplutil"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="pagamentos"/>
 	</field>
-	<field name="totutil" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="totutil"/>
+	<field name="totplnaoutil" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="totplnaoutil"/>
 	</field>
-	<field name="numplnaoutil" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="numplnaoutil"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="pagamentos"/>
+	<field name="plnaoutil" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="plnaoutil"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="parametros"/>
 	</field>
 	<field name="valplnaoutil" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="valplnaoutil"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="pagamentos"/>
 	</field>
-	<field name="totnaoutil" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="totnaoutil"/>
+	<field name="parcial" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="parcial"/>
 	</field>
-	<field name="total" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="total"/>
-	</field>
-	<field name="unidade" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="unidade"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="unidades"/>
-	</field>
-	<field name="setor" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="setor"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="setors"/>
-	</field>
-	<field name="descricao" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="descricao"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="parametros"/>
-	</field>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
+	<variable name="tot" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{parcial}]]></variableExpression>
+	</variable>
 	<pageHeader>
 		<band height="141" splitType="Stretch">
 			<staticText>
@@ -250,138 +247,120 @@ FROM pagamentos pg join unidades u on (pg.unidade_id = u.id)
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{totprof}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="630" y="69" width="168" height="18" uuid="d5440667-82da-4184-9b92-e4fb2c5309f8"/>
+			<textField evaluationTime="Report" pattern="¤#,##0.00;¤-#,##0.00">
+				<reportElement x="630" y="71" width="160" height="18" uuid="b13e260f-3c67-44da-86d8-d6edc6258b86"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
+					<font size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{tofolha}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{tot}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="34" splitType="Stretch">
+		<band height="33" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="188" height="34" uuid="c748820e-e37e-4cb5-9a88-2e595eea39df"/>
+				<reportElement x="189" y="0" width="270" height="32" uuid="4a38709f-e8c2-4d9b-a55f-567e4eee5ff6"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="189" y="0" width="270" height="34" uuid="f9a5a9cc-e1a7-4282-a923-47814fca0d45"/>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font size="9"/>
-				</textElement>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="459" y="0" width="30" height="34" uuid="3dc4385c-b43f-4da0-8da7-33fd4c6f54bb"/>
+			<textField pattern="¤#,##0.00;¤-#,##0.00">
+				<reportElement x="489" y="0" width="54" height="32" uuid="4d200d46-3c64-4438-8679-d6a5d7fcc3c1"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{numplutil}]]></textFieldExpression>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{plutil}]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤#,##0.00;¤-#,##0.00">
-				<reportElement x="489" y="0" width="54" height="34" uuid="4bcee63e-b90f-443f-9ab7-ce06894d8fac"/>
+				<reportElement x="544" y="0" width="56" height="32" uuid="30f57894-d06d-4f69-a97f-92d2d0e32999"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9"/>
-				</textElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{valplutil}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤#,##0.00;¤-#,##0.00">
-				<reportElement x="544" y="0" width="56" height="34" uuid="c0c41edc-0d84-4b25-af5e-bb953772c352"/>
+			<textField pattern="#,##0.00">
+				<reportElement x="459" y="0" width="30" height="32" uuid="8cb203ca-eb36-4dbf-b70c-42e748d2e99b"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{totutil}]]></textFieldExpression>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totplutil}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="600" y="0" width="30" height="34" uuid="54c34e29-983d-47f5-a593-92c9c2a246ab"/>
+			<textField pattern="#,##0.00">
+				<reportElement x="600" y="0" width="30" height="32" uuid="f0914b13-19f5-4142-9df0-9e434efe823d"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{numplnaoutil}]]></textFieldExpression>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totplnaoutil}]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤#,##0.00;¤-#,##0.00">
-				<reportElement x="630" y="0" width="54" height="34" uuid="ce2822f2-9891-4a45-9462-5608f4f74499"/>
+				<reportElement x="630" y="0" width="54" height="32" uuid="62181608-28fe-47c5-9d66-2a677c5f1c09"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9"/>
-				</textElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{plnaoutil}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤#,##0.00;¤-#,##0.00">
+				<reportElement x="685" y="0" width="54" height="32" uuid="a9c0c520-aad6-415a-a7bd-c451ee8f4795"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{valplnaoutil}]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤#,##0.00;¤-#,##0.00">
-				<reportElement x="685" y="0" width="56" height="34" uuid="5e9dac8e-54c1-477d-bdd2-71c7e85a0b67"/>
+				<reportElement x="740" y="0" width="62" height="32" uuid="76762c79-cdc8-4bf4-8191-2f77211b265f"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{totnaoutil}]]></textFieldExpression>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{parcial}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤#,##0.00;¤-#,##0.00">
-				<reportElement x="740" y="0" width="62" height="34" uuid="f4e9f834-6d8b-4fa8-80c1-294d0bacecb8"/>
+			<textField>
+				<reportElement x="0" y="0" width="189" height="32" uuid="2bce865a-1e18-41df-9e3c-08d8d70bb512"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="23" splitType="Stretch">
+		<band height="22" splitType="Stretch">
 			<textField>
 				<reportElement x="740" y="0" width="62" height="22" uuid="461ff696-6877-462a-9647-4d16b48d86cc"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -391,6 +370,7 @@ FROM pagamentos pg join unidades u on (pg.unidade_id = u.id)
 			</textField>
 			<textField pattern="dd/MM/Y H:m:s">
 				<reportElement x="0" y="0" width="100" height="22" uuid="f14ebe12-890f-402c-9577-f8d548c73857"/>
+				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>

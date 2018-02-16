@@ -22,7 +22,12 @@ class ReportController extends Controller
      * Reporna um array com os parametros de conexão
      * @return Array
      */
- public function getDatabaseConfig()
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function getDatabaseConfig()
     {
         return [
             'driver'   => env('DB_CONNECTION'),
@@ -34,14 +39,22 @@ class ReportController extends Controller
             'jdbc_dir' => base_path() . env('JDBC_DIR', '/vendor/lavela/phpjasper/src/JasperStarter/jdbc'),
         ];
     }
-public function index(Request $request)
+    
+    public function index(Request $request)
     {
 
         // receber parametros
         $setor  = Setor::findOrfail($request->setor_id);
         $unidade  = Unidade::findOrfail($request->unidade_id);
-        $mesano = $request->mesano;
-
+        $dividir = explode(' ', $request->mes);
+        $mes = $dividir[1];
+        $ano = $request->ano;
+        $mesano = $mes.'/'.$ano;
+        $wh =  $request->setor_id;
+        $whu = $request->unidade_id;
+        $whm = $dividir[0];
+    
+        //.' and u.id = '.$request->unidade_id.' and month(pg.created_at) ='.'02';
      // coloca na variavel o caminho do novo relatório que será gerado
         $output = public_path() . '/reports/' . time() . '_Clientes';
 // instancia um novo objeto JasperPHP
@@ -57,7 +70,7 @@ public function index(Request $request)
             public_path() . '/reports/relpagamento.jrxml',
             $output,
             ['pdf'],
-            ['setor'=>$setor->setor , 'unidade'=>$unidade->unidade , 'mesano'=> $mesano],
+            ['setor'=>$setor->setor , 'unidade'=>$unidade->unidade , 'mesano'=> $mesano,'wh'=>$wh, 'whu'=>$whu, 'whm'=>$whm],
             $this->getDatabaseConfig()
         )->execute();
         
@@ -75,7 +88,7 @@ public function index(Request $request)
 // retornamos o conteudo para o navegador que íra abrir o PDF
         return response($file, 200)
             ->header('Content-Type', 'application/pdf')
-            ->header('Content-Disposition', 'inline; filename="cliente.pdf"');
+            ->header('Content-Disposition', 'inline; filename="cismep.pdf"');
      
     }
 }

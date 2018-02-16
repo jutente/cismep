@@ -21,8 +21,7 @@
                         @endif
                         </div>    
                 </div>
-             
-
+         
                 <!-- Selecionar setor -->
                 <div class="form-group  {{ $errors->has('setor_id') ? ' has-error' : '' }}">
                     {{ Form::label('setor_id', 'Setor:', ['class' => 'col-md-4 control-label']) }}
@@ -35,21 +34,37 @@
                         @endif
                         </div>    
                 </div>
-
-                 <!--  mesano  -->
-                 <div class="form-group {{ $errors->has('mesano') ? ' has-error' : '' }}">
-                    {{ Form::label('mesano', 'Mes e ano:', ['class' => 'col-md-4 control-label']) }}
-                    <div class="col-md-6">
-                        {{ Form::text('mesano', '', ['class' => 'form-control', 'placeholder'=>'Exemplo Janeiro/2018']) }}
-                        @if ($errors->has('mesano'))
+                                        
+                <!-- Selecionar mes -->
+                <div class="form-group  {{ $errors->has('mes') ? ' has-error' : '' }}">
+                    {{ Form::label('mes', 'Mes:', ['class' => 'col-md-4 control-label']) }}
+                        <div class="col-md-6">
+                        {!! Form::select('mes', ['01 janeiro'=>'janeiro','02 fevereiro'=>'fevereiro', '03 março'=>'março', '04 abril'=>'abril', '05 maio'=>'maio', 
+                                                 '06 junho'=>'junho', '07 julho'=>'julho', '08 agosto'=>'agosto', '09 setembro'=>'setembro', '10 outubro'=>'outubro', 
+                                                 '11 novembro'=>'novembro', '12 dezembro'=>'dezembro'], ['placeholder' => 'Escolha um mes...', 'class' => 'form-control']) !!}
+                        @if ($errors->has('mes'))
                             <span class="help-block">
-                                <strong>{{$errors->first('mesano')}}</strong>
+                                <strong>{{$errors->first('mes')}}</strong>
                             </span>
                         @endif
-                    </div>    
-                </div>    
+                        </div>    
+                </div>
+               
+                
+                <!-- Selecionar ano -->
+                <div class="form-group  {{ $errors->has('ano') ? ' has-error' : '' }}">
+                    {{ Form::label('ano', 'Ano:', ['class' => 'col-md-4 control-label']) }}
+                        <div class="col-md-6">
+                        {!! Form::selectRange('ano', 2018, 2020, ['placeholder' => 'Escolha um ano...', 'class' => 'form-control']) !!}
+                        @if ($errors->has('ano'))
+                            <span class="help-block">
+                                <strong>{{$errors->first('ano')}}</strong>
+                            </span>
+                        @endif
+                        </div>    
+                </div>
 
-                               
+                                             
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-4">
                         {{ Form::submit('Gerar', ['class' => 'btn btn-primary']) }}

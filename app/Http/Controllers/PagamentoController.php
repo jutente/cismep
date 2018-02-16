@@ -97,9 +97,9 @@ class PagamentoController extends Controller
        
         $parametro = parametro::findOrFail($request->parametro_id);        
         
-        $vutil =($parametro->plutil/12) * $request->numplutil;
+        $vutil = ($parametro->plutil * $request->numplutil)/12;
 
-        $vnaoutil = ($parametro->plnaoutil/12) * $request->numplnaoutil;
+        $vnaoutil = ($parametro->plnaoutil* $request->numplnaoutil)/12;
 
         Pagamento::create($request->all() + ['valplutil' => $vutil, 'valplnaoutil' => $vnaoutil]);
 
@@ -159,8 +159,9 @@ class PagamentoController extends Controller
         $profissional  = Profissional::findOrfail($request->profissional_id);
           
 
-        $pagamento->valplutil = ($parametro->plutil/12) * $request->numplutil;
-        $pagamento->valplnaoutil = ($parametro->plnaoutil/12) * $request->numplnaoutil;
+        $pagamento->valplutil = ($parametro->plutil * $request->numplutil)/12;
+        $pagamento->valplnaoutil = ($parametro->plnaoutil* $request->numplnaoutil)/12;
+
         $pagamento->parametro_id = $parametro->id;
         $pagamento->setor_id = $setor->id;
         $pagamento->unidade_id = $unidade->id;
