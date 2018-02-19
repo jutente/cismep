@@ -46,7 +46,8 @@
 							<th>Plantao util</th>
 							<th>Valor plantao util</th>
 	                        <th>Plantao nao util</th>	
-							<th>Valor plantao nao util</th>							
+							<th>Valor plantao nao util</th>
+							<th>Data do pagamento</th>								
 	                        <th></th>
 	                    </tr>
 	                    </thead>
@@ -60,7 +61,8 @@
 							<td>{{$pagamento->numplutil.' horas'}}</td>
 							<td>{{'R$ '.number_format($pagamento->valplutil, 2, ',', '.')}}</td>
 							<td>{{$pagamento->numplnaoutil.' horas'}}</td>							
-							<td>{{'R$ '.number_format($pagamento->valplnaoutil, 2, ',', '.')}}</td>				                        
+							<td>{{'R$ '.number_format($pagamento->valplnaoutil, 2, ',', '.')}}</td>	
+							<td>{{\Carbon\Carbon::parse($pagamento->dtpagamento)->format('d/m/Y')}}</td>					                        
 						
 							
 	                        <td style="text-align: right">

@@ -44,14 +44,40 @@ class ReportController extends Controller
     {
 
         // receber parametros
-        $setor  = Setor::findOrfail($request->setor_id);
-        $unidade  = Unidade::findOrfail($request->unidade_id);
+       
         $dividir = explode(' ', $request->mes);
         $mes = $dividir[1];
         $ano = $request->ano;
         $mesano = $mes.'/'.$ano;
-        $wh =  $request->setor_id;
-        $whu = $request->unidade_id;
+        
+        $setor = Setor::find($request->setor_id);
+
+        if (isset($setor)) {
+
+            $nomesetor= $setor->setor;
+            $wh = $whsfim = $request->setor_id ;  
+
+        } else {
+
+            $nomesetor = 'geral';
+            $wh = 0;
+            $whsfim = 99999;
+        }
+
+        $unidade = Unidade::find($request->unidade_id);
+
+        if (isset($unidade)) {
+
+            $nomeunidade = $unidade->unidade;
+            $whu = $whufim = $request->unidade_id ;  
+
+        } else {
+            
+            $nomeunidade = 'geral';
+            $whu = 0;
+            $whufim = 99999;
+        }          
+    
         $whm = $dividir[0];
     
         //.' and u.id = '.$request->unidade_id.' and month(pg.created_at) ='.'02';
@@ -70,7 +96,7 @@ class ReportController extends Controller
             public_path() . '/reports/relpagamento.jrxml',
             $output,
             ['pdf'],
-            ['setor'=>$setor->setor , 'unidade'=>$unidade->unidade , 'mesano'=> $mesano,'wh'=>$wh, 'whu'=>$whu, 'whm'=>$whm],
+            ['setor'=>$nomesetor , 'unidade'=>$nomeunidade , 'mesano'=> $mesano,'wh'=>$wh,'whsfim'=>$whsfim, 'whu'=>$whu, 'whufim'=>$whufim, 'whm'=>$whm],
             $this->getDatabaseConfig()
         )->execute();
         

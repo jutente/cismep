@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pagamento extends Model
 {
-    protected $fillable = ['numplutil','numplnaoutil','valplutil','valplnaoutil','profissional_id','unidade_id','setor_id','parametro_id'];
+    protected $fillable = ['numplutil','numplnaoutil','valplutil','valplnaoutil','profissional_id','unidade_id','setor_id','parametro_id','dtpagamento'];
 
     public function profissional()
     {

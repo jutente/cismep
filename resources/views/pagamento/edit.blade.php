@@ -98,6 +98,19 @@
                     </div>    
                 </div>
 
+                <!-- Data do Pagamento -->
+                <div class="form-group {{ $errors->has('dtpagamento') ? ' has-error' : '' }}">
+                    {{ Form::label('dtpagamento', 'Data do Pagamento:', ['class' => 'col-md-4 control-label']) }}
+                    <div class="col-md-6">
+                        {{ Form::date('dtpagamento', \Carbon\Carbon::now(), ['class' => 'form-control']) }}
+                        @if ($errors->has('dtpagamento'))
+                            <span class="help-block">
+                                <strong>{{$errors->first('dtpagamento')}}</strong>
+                            </span>
+                        @endif
+                    </div>    
+                </div>
+
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-4">
                         {{ Form::submit('Salvar', ['class' => 'btn btn-primary']) }}

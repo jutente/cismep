@@ -167,6 +167,8 @@ class PagamentoController extends Controller
         $pagamento->unidade_id = $unidade->id;
         $pagamento->profissional_id = $profissional->id;
 
+        $pagamento->dtpagamento =  $request->dtpagamento;
+
         $pagamento->save();
         
         Session::flash('edited_pagamento', 'pagamento alterado com sucesso!');

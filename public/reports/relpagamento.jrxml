@@ -11,6 +11,8 @@
 	<parameter name="wh" class="java.lang.String"/>
 	<parameter name="whu" class="java.lang.String"/>
 	<parameter name="whm" class="java.lang.String"/>
+	<parameter name="whsfim" class="java.lang.String"/>
+	<parameter name="whufim" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT p.nome, pa.descricao, (pg.numplutil/12) as totplutil, pa.plutil, pg.valplutil, 
 							 (pg.numplnaoutil/12) as totplnaoutil, pa.plnaoutil, pg.valplnaoutil,
@@ -19,9 +21,10 @@ FROM pagamentos pg join profissionals p on (pg.profissional_id = p.id)
                    join parametros pa on (pg.parametro_id = pa.id)
                    join setors s on (pg.setor_id = s.id)
                    join unidades u on (pg.unidade_id = u.id)                  
- where s.id  = $P{wh} and
- 			 u.id =  $P{whu} and 
- 				month(pg.created_at) = $P{whm} ]]>
+ where (s.id >= $P{wh} and s.id <=  $P{whsfim} ) and
+ 			  (u.id >=  $P{whu} and u.id <=  $P{whufim} ) and
+ 			  		month(pg.dtpagamento) = $P{whm}
+ 		]]>
 	</queryString>
 	<field name="nome" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="nome"/>
