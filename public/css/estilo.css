@@ -33,24 +33,24 @@ body {
     color: #fff !important;
 }
 
-.open .dropdown-toggle {
+ .open .dropdown-toggle {
     color: #fff ;
     background-color: #555 !important;
 }
 
 .dropdown-menu li a {
     color: #000 !important;
-}
+} 
 
 .modal-header {
-    background-color: rgb(0, 121, 74);
+    background-color: rgb(95, 170, 231);
     color:white !important;
     text-align: center;
     font-size: 30px;
 
 }
 .modal-footer {
-    background-color: rgb(0, 121, 74);
+    background-color: rgb(95, 170, 231);
 }
 
 tr:hover td {

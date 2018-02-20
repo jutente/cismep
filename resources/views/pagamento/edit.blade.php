@@ -111,6 +111,31 @@
                     </div>    
                 </div>
 
+                <div class="form-group {{ $errors->has('ano') ? ' has-error' : '' }}">
+                    {{ Form::label('ano', 'Ano de referencia:', ['class' => 'col-md-4 control-label']) }}
+                    <div class="col-md-6">
+                        {{ Form::text('ano', $competencias->ano, ['class' => 'form-control','readonly']) }}
+                        @if ($errors->has('ano'))
+                            <span class="help-block">
+                                <strong>{{$errors->first('ano')}}</strong>
+                            </span>
+                        @endif
+                    </div>    
+                </div>
+
+                <!-- mes do pagamento -->
+                <div class="form-group {{ $errors->has('mes') ? ' has-error' : '' }}">
+                    {{ Form::label('mes', 'Mes de referencia:', ['class' => 'col-md-4 control-label']) }}
+                    <div class="col-md-6">
+                        {{ Form::text('mes', $competencias->mes, ['class' => 'form-control','readonly']) }}
+                        @if ($errors->has('mes'))
+                            <span class="help-block">
+                                <strong>{{$errors->first('ano')}}</strong>
+                            </span>
+                        @endif
+                    </div>    
+                </div>
+
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-4">
                         {{ Form::submit('Salvar', ['class' => 'btn btn-primary']) }}

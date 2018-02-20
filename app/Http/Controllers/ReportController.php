@@ -47,7 +47,7 @@ class ReportController extends Controller
        
         $dividir = explode(' ', $request->mes);
         $mes = $dividir[1];
-        $ano = $request->ano;
+        $whano = $ano = $request->ano;
         $mesano = $mes.'/'.$ano;
         
         $setor = Setor::find($request->setor_id);
@@ -78,9 +78,9 @@ class ReportController extends Controller
             $whufim = 99999;
         }          
     
-        $whm = $dividir[0];
+        $whm = mb_strtoupper($dividir[1]);
     
-        //.' and u.id = '.$request->unidade_id.' and month(pg.created_at) ='.'02';
+       
      // coloca na variavel o caminho do novo relatório que será gerado
         $output = public_path() . '/reports/' . time() . '_Clientes';
 // instancia um novo objeto JasperPHP
@@ -96,7 +96,8 @@ class ReportController extends Controller
             public_path() . '/reports/relpagamento.jrxml',
             $output,
             ['pdf'],
-            ['setor'=>$nomesetor , 'unidade'=>$nomeunidade , 'mesano'=> $mesano,'wh'=>$wh,'whsfim'=>$whsfim, 'whu'=>$whu, 'whufim'=>$whufim, 'whm'=>$whm],
+            ['setor'=>$nomesetor , 'unidade'=>$nomeunidade , 'mesano'=> $mesano,
+             'wh'=>$wh,'whsfim'=>$whsfim, 'whu'=>$whu, 'whufim'=>$whufim, 'whm'=>$whm,'whano'=>$whano],
             $this->getDatabaseConfig()
         )->execute();
         

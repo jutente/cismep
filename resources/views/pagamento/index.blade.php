@@ -42,12 +42,13 @@
 							<th>Nome</th>
 							<th>Unidade</th>
 							<th>Setor</th>
-							<th width="40%">Descriçao </th> 
+							<th width="35%">Descriçao </th> 
 							<th>Plantao util</th>
 							<th>Valor plantao util</th>
 	                        <th>Plantao nao util</th>	
 							<th>Valor plantao nao util</th>
-							<th>Data do pagamento</th>								
+							<th>Mes</th>		
+							<th>Ano</th>						
 	                        <th></th>
 	                    </tr>
 	                    </thead>
@@ -62,8 +63,9 @@
 							<td>{{'R$ '.number_format($pagamento->valplutil, 2, ',', '.')}}</td>
 							<td>{{$pagamento->numplnaoutil.' horas'}}</td>							
 							<td>{{'R$ '.number_format($pagamento->valplnaoutil, 2, ',', '.')}}</td>	
-							<td>{{\Carbon\Carbon::parse($pagamento->dtpagamento)->format('d/m/Y')}}</td>					                        
-						
+							{{--  <td>{{\Carbon\Carbon::parse($pagamento->dtpagamento)->format('d/m/Y')}}</td>  --}}
+							<td>{{$pagamento->mes}}</td>
+							<td>{{$pagamento->ano}}</td>
 							
 	                        <td style="text-align: right">
 	                            <a href="{{route('pagamento.edit', $pagamento->id)}}" class="btn btn-primary btn-xs" role="button">Alterar</a>
@@ -93,24 +95,30 @@
 	  <div class="modal-content">
 		<div class="modal-header">
 		  <button type="button" class="close" data-dismiss="modal">&times;</button>
-		  <h4 class="modal-title">Modal Header</h4>
+		  <h4 class="modal-title">Filtro</h4>
 		</div>
 		<div class="modal-body">
-			{!! Form::open(['method'=>'GET','url'=>route('profissional.index')])  !!}
+			{!! Form::open(['method'=>'GET','url'=>route('pagamento.index')])  !!}
 			<br>                         
 			<div class="form-group">
-				{{ Form::label('nome', 'Profissional:') }}
-				{{ Form::text('nome', '', ['class' => 'form-control', 'placeholder' => 'Nome do profissional...']) }}   
+				{{ Form::label('profissional_id', 'Profissional:') }}
+                {!! Form::select('profissional_id', $profissionals, null, ['placeholder' => 'Escolha um profissional...', 'class' => 'form-control']) !!}
+                     
 			</div>
 			<br>   
 			<div class="form-group">
-				{{ Form::label('cpf', 'CPF:') }}
-				{{ Form::text('cpf', '', ['class' => 'form-control', 'placeholder' =>'CPF do profissional ...']) }}   
+				{{ Form::label('mes', 'Mes:') }}
+				{{ Form::text('mes', '', ['class' => 'form-control', 'placeholder' =>'Mes do pagamento ...']) }}   
+			</div>
+			<br>   
+			<div class="form-group">
+				{{ Form::label('ano', 'Ano:') }}
+				{{ Form::text('ano', '', ['class' => 'form-control', 'placeholder' =>'Ano do pagamento ...']) }}   
 			</div>
 								 
 			<div class="form-group">
 				{{ Form::submit('Buscar', ['class' => 'btn btn-default btn-sm']) }}
-				<a href="{{ route('profissional.index') }}" class="btn btn-default btn-sm" role="button">Limpar</a>
+				<a href="{{ route('pagamento.index') }}" class="btn btn-default btn-sm" role="button">Limpar</a>
 			</div>
 			{!! Form::close() !!} 
 		</div>

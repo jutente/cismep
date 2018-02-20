@@ -2,17 +2,15 @@
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
+   
+    <meta name="robots" content="noindex, nofollow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/estilo.css') }}">
-    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('script-header')
     <title>{{ config('app.name') }}</title>
@@ -49,6 +47,7 @@
                             <li><a href="{{ route('unidade.index') }}">Unidade</a></li>
                             <li><a href="{{ route('setor.index') }}">Setor</a></li>
                             <li><a href="{{ route('parametro.index') }}">Parametro</a></li>
+                            <li><a href="{{ route('competencia.index') }}">Competencia</a></li>
                             <li><a href="{{ route('pagamento.index') }}">Pagamento</a></li>
                             <li><a href="{{ route('relatorio') }}">Relatorio</a></li>
                         @endif
@@ -61,14 +60,10 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                          @else    
                             <li><a href="{{ route('register') }}">Registrar</a></li>
-                       
-                         
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    {{ Auth::user()->name }} <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -81,7 +76,7 @@
                                         </form>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> 
                         @endif
                     </ul>
                 </div>
@@ -92,6 +87,6 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    @yield('script-footer')
 </body>
 </html>

@@ -9,6 +9,8 @@ use App\Setor;
 use App\Unidade;
 use App\Parametro;
 use App\Profissional;
+use App\Competencia;
+
 
 use Response;
 use Auth;
@@ -57,6 +59,18 @@ class PagamentoController extends Controller
                 $pagamentos = $pagamentos->where('parametro_id', '=', request('parametro_id'));
             }
         }
+
+        if (request()->has('ano')){
+            if (request('ano') != ""){
+                $pagamentos = $pagamentos->where('ano', '=', request('ano'));
+            }
+        }
+
+        if (request()->has('mes')){
+            if (request('mes') != ""){
+                $pagamentos = $pagamentos->where('mes', '=', request('mes'));
+            }
+        }
      
      
         // ordenando
@@ -66,6 +80,7 @@ class PagamentoController extends Controller
       $unidades = Unidade::orderBy('unidade')->pluck('unidade', 'id');
       $setors = Setor::orderBy('setor')->pluck('setor', 'id'); 
       $parametros = Parametro::orderBy('descricao')->pluck('descricao', 'id'); 
+     
     
       return view('pagamento.index', compact('pagamentos', 'profissionals', 'unidades', 'setors', 'parametros')); 
     }
@@ -81,9 +96,11 @@ class PagamentoController extends Controller
       $unidades = Unidade::orderBy('unidade')->pluck('unidade', 'id');
       $setors = Setor::orderBy('setor')->pluck('setor', 'id'); 
       $parametros = Parametro::orderBy('descricao')->pluck('descricao', 'id');
+      $competencias = Competencia::find(1); 
+     // dd($competencias);
         
       
-      return view('pagamento.create', compact('profissionals', 'unidades', 'setors', 'parametros'));
+      return view('pagamento.create', compact('profissionals', 'unidades', 'setors', 'parametros','competencias'));
     }
 
     /**
@@ -135,8 +152,9 @@ class PagamentoController extends Controller
         $unidades = Unidade::orderBy('unidade')->pluck('unidade', 'id');
         $setors = Setor::orderBy('setor')->pluck('setor', 'id'); 
         $parametros = Parametro::orderBy('descricao')->pluck('descricao', 'id');
+        $competencias = Competencia::find(1); 
         
-        return view('pagamento.edit', compact('pagamento', 'profissionals', 'unidades', 'setors', 'parametros'));
+        return view('pagamento.edit', compact('pagamento', 'profissionals', 'unidades', 'setors', 'parametros','competencias'));
     }
 
     /**
@@ -168,6 +186,8 @@ class PagamentoController extends Controller
         $pagamento->profissional_id = $profissional->id;
 
         $pagamento->dtpagamento =  $request->dtpagamento;
+        $pagamento->ano = $request->ano;
+        $pagamento->mes = $request->mes;
 
         $pagamento->save();
         

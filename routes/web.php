@@ -28,3 +28,4 @@ Route::resource('/unidade', 'UnidadeController');
 Route::resource('/setor', 'SetorController');
 Route::resource('/parametro', 'ParametroController');
 Route::resource('/pagamento', 'PagamentoController');
+Route::resource('/competencia', 'CompetenciaController');

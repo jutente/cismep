@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading"><a href="{{route('pagamento.index')}}">pagamento</a> - Novo</div>
+                <div class="panel-heading"><a href="{{route('pagamento.index')}}">Pagamentos</a></div>
                 <br>
                 {!! Form::open(['method' => 'post', 'url' => route('relsetor'), 'class' => 'form-horizontal']) !!}
                                               
