@@ -24,7 +24,7 @@ FROM pagamentos pg join profissionals p on (pg.profissional_id = p.id)
                    join unidades u on (pg.unidade_id = u.id)                  
  where (s.id >= $P{wh} and s.id <=  $P{whsfim} ) and
  			  (u.id >=  $P{whu} and u.id <=  $P{whufim} ) and
- 			  		pg.mes = $P{whm} and pg.ano =  $P{whano} ]]>
+ 			  		pg.mes = $P{whm} and pg.ano =  $P{whano}]]>
 	</queryString>
 	<field name="nome" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="nome"/>
@@ -61,6 +61,10 @@ FROM pagamentos pg join profissionals p on (pg.profissional_id = p.id)
 	</field>
 	<variable name="tot" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{parcial}]]></variableExpression>
+	</variable>
+	<variable name="teste" class="java.lang.Integer" incrementType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$V{REPORT_COUNT}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<pageHeader>
 		<band height="141" splitType="Stretch">
@@ -245,17 +249,17 @@ FROM pagamentos pg join profissionals p on (pg.profissional_id = p.id)
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{mesano}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="770" y="29" width="30" height="20" uuid="ac3e0590-9c5e-40c9-8f4d-dee809847e19"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{totprof}]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report" pattern="¤#,##0.00;¤-#,##0.00">
+			<textField evaluationTime="Report" pattern="R$ #,##0.00">
 				<reportElement x="630" y="71" width="160" height="18" uuid="b13e260f-3c67-44da-86d8-d6edc6258b86"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{tot}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="769" y="30" width="30" height="19" uuid="6083db31-b5c7-4727-82e8-812da4a5356c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{teste}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -274,7 +278,7 @@ FROM pagamentos pg join profissionals p on (pg.profissional_id = p.id)
 				</textElement>
 				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤#,##0.00;¤-#,##0.00">
+			<textField pattern="R$ #,##0.00;-#,##0.00">
 				<reportElement x="489" y="0" width="54" height="40" uuid="4d200d46-3c64-4438-8679-d6a5d7fcc3c1"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -282,10 +286,12 @@ FROM pagamentos pg join profissionals p on (pg.profissional_id = p.id)
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{plutil}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤#,##0.00;¤-#,##0.00">
+			<textField pattern="R$ #,##0.00;-#,##0.00">
 				<reportElement x="544" y="0" width="56" height="40" uuid="30f57894-d06d-4f69-a97f-92d2d0e32999"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -293,7 +299,9 @@ FROM pagamentos pg join profissionals p on (pg.profissional_id = p.id)
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{valplutil}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
@@ -304,7 +312,9 @@ FROM pagamentos pg join profissionals p on (pg.profissional_id = p.id)
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{totplutil}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
@@ -315,10 +325,12 @@ FROM pagamentos pg join profissionals p on (pg.profissional_id = p.id)
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{totplnaoutil}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤#,##0.00;¤-#,##0.00">
+			<textField pattern="R$ #,##0.00;-#,##0.00">
 				<reportElement x="630" y="0" width="54" height="40" uuid="62181608-28fe-47c5-9d66-2a677c5f1c09"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -326,10 +338,12 @@ FROM pagamentos pg join profissionals p on (pg.profissional_id = p.id)
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{plnaoutil}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤#,##0.00;¤-#,##0.00">
+			<textField pattern="R$ #,##0.00;-#,##0.00">
 				<reportElement x="685" y="0" width="54" height="40" uuid="a9c0c520-aad6-415a-a7bd-c451ee8f4795"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -337,10 +351,12 @@ FROM pagamentos pg join profissionals p on (pg.profissional_id = p.id)
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{valplnaoutil}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤#,##0.00;¤-#,##0.00">
+			<textField pattern="R$ #,##0.00;-#,##0.00">
 				<reportElement x="740" y="0" width="62" height="40" uuid="76762c79-cdc8-4bf4-8191-2f77211b265f"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -348,7 +364,9 @@ FROM pagamentos pg join profissionals p on (pg.profissional_id = p.id)
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{parcial}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -373,7 +391,7 @@ FROM pagamentos pg join profissionals p on (pg.profissional_id = p.id)
 				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/Y H:m:s">
+			<textField pattern="dd/MM/y H:mm:ss">
 				<reportElement x="0" y="0" width="100" height="22" uuid="f14ebe12-890f-402c-9577-f8d548c73857"/>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
